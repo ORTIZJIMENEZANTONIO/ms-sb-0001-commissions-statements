@@ -36,144 +36,180 @@ let ComissionController = class ComissionController {
         this.service = service;
         this.logger = logger;
     }
-    async centralCoordinate(data) { }
-    async calculateCommissionSpecialRange(data) { }
-    async getPctComissionToSpecial(data) { }
-    async calculateCommissionRange(data) { }
-    async getTotalSolds(data) { }
-    async calculateCommission(data) { }
-    async applyGoodsComission(data) { }
-    async calculateComissionTotal(data) { }
-    async updateComissionData(data) { }
-    async deleteComission(comId) { }
-    async getGoodsInCalculateComission(comId) { }
-    async getPaidGoodsInDates(data) { }
-    async copyEvenLot() { }
-    async markLotsDateGreater(date) { }
-    async markLotsDateMinor(date) { }
-    async deleteLotsPaymentsDateMinor(startDate) { }
-    async getGoodsPaidFromEvent(data) { }
-    async insertGoods(data) { }
+    async centralCoordinate(data) {
+        return await this.service.centralCoordinate(data);
+    }
+    async calculateCommissionSpecialRange(data) {
+        return await this.service.calculateCommissionSpecialRange(data);
+    }
+    async getPctComissionToSpecial(data) {
+        return await this.service.getPctComissionToSpecial(data);
+    }
+    async calculateCommissionRange(data) {
+        return await this.service.calculateCommissionRange(data);
+    }
+    async getTotalSolds(data) {
+        return await this.service.getTotalSolds(data);
+    }
+    async calculateCommission(data) {
+        return await this.service.calculateCommission(data);
+    }
+    async applyGoodsComission(data) {
+        return await this.service.applyGoodsComission(data);
+    }
+    async calculateComissionTotal(data) {
+        return await this.service.calculateComissionTotal(data);
+    }
+    async updateComissionData(data) {
+        return await this.service.updateComissionData(data);
+    }
+    async deleteComission(comId) {
+        return await this.service.deleteComission(comId);
+    }
+    async getGoodsInCalculateComission(comId) {
+        return await this.service.getGoodsInCalculateComission(comId);
+    }
+    async getPaidGoodsInDates(data) {
+        return await this.service.getPaidGoodsInDates(data);
+    }
+    async copyEvenLot() {
+        return await this.service.copyEvenLot();
+    }
+    async markLotsDateGreater(date) {
+        return await this.service.markLotsDateGreater(date);
+    }
+    async markLotsDateMinor(date) {
+        return await this.service.markLotsDateMinor(date);
+    }
+    async deleteLotsPaymentsDateMinor(startDate) {
+        return await this.service.deleteLotsPaymentsDateMinor(startDate);
+    }
+    async getGoodsPaidFromEvent(data) {
+        return await this.service.getGoodsPaidFromEvent(data);
+    }
+    async insertGoods(data) {
+        return await this.service.insertGoods(data);
+    }
     async getGlobalParams(data) {
-        return "";
+        return await this.service.getGlobalParams(data);
     }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'centralCoordinate' }),
+    (0, microservices_1.MessagePattern)({ cmd: "centralCoordinate" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [central_coordinate_dto_1.CentralCoordinateDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "centralCoordinate", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'calculateCommissionSpecialRange' }),
+    (0, microservices_1.MessagePattern)({ cmd: "calculateCommissionSpecialRange" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [comission_special_range_dto_1.ComissionSpecialRangeDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "calculateCommissionSpecialRange", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'getPctComissionToSpecial' }),
+    (0, microservices_1.MessagePattern)({ cmd: "getPctComissionToSpecial" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_pct_dto_1.PctSpecialDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "getPctComissionToSpecial", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'calculateCommissionRange' }),
+    (0, microservices_1.MessagePattern)({ cmd: "calculateCommissionRange" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [calc_comission_range_dto_1.ComissionRangeDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "calculateCommissionRange", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'getTotalSolds' }),
+    (0, microservices_1.MessagePattern)({ cmd: "getTotalSolds" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_total_solds_dto_1.TotalSoldsDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "getTotalSolds", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'calculateCommission' }),
+    (0, microservices_1.MessagePattern)({ cmd: "calculateCommission" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [calc_comission_dto_1.CalcCommissionDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "calculateCommission", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'applyGoodsComission' }),
+    (0, microservices_1.MessagePattern)({ cmd: "applyGoodsComission" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [goods_comission_dto_1.GoodsComissionDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "applyGoodsComission", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'calculateComissionTotal' }),
+    (0, microservices_1.MessagePattern)({ cmd: "calculateComissionTotal" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [calc_comission_total_dto_1.ComissionTotalDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "calculateComissionTotal", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'updateComissionData' }),
+    (0, microservices_1.MessagePattern)({ cmd: "updateComissionData" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [updt_comission_dto_1.UpdtComissionDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "updateComissionData", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'deleteComission' }),
+    (0, microservices_1.MessagePattern)({ cmd: "deleteComission" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "deleteComission", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'getGoodsInCalculateComission' }),
+    (0, microservices_1.MessagePattern)({ cmd: "getGoodsInCalculateComission" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "getGoodsInCalculateComission", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'getPaidGoodsInDates' }),
+    (0, microservices_1.MessagePattern)({ cmd: "getPaidGoodsInDates" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_paid_goods_In_dates_dto_1.PaidGoodsInDatesDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "getPaidGoodsInDates", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'copyEvenLot' }),
+    (0, microservices_1.MessagePattern)({ cmd: "copyEvenLot" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "copyEvenLot", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'markLotsDateGreater' }),
+    (0, microservices_1.MessagePattern)({ cmd: "markLotsDateGreater" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Date]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "markLotsDateGreater", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'markLotsDateMinor' }),
+    (0, microservices_1.MessagePattern)({ cmd: "markLotsDateMinor" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Date]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "markLotsDateMinor", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'deleteLotsPaymentsDateMinor' }),
+    (0, microservices_1.MessagePattern)({ cmd: "deleteLotsPaymentsDateMinor" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Date]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "deleteLotsPaymentsDateMinor", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'getGoodsPaidFromEvent' }),
+    (0, microservices_1.MessagePattern)({ cmd: "getGoodsPaidFromEvent" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_goods_paid_from_event_dto_1.GoodsPaidFromEventDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "getGoodsPaidFromEvent", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'insertGoods' }),
+    (0, microservices_1.MessagePattern)({ cmd: "insertGoods" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [insrt_goods_dto_1.InsrtGoodDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "insertGoods", null);
 __decorate([
-    (0, microservices_1.MessagePattern)({ cmd: 'getGlobalParams' }),
+    (0, microservices_1.MessagePattern)({ cmd: "getGlobalParams" }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_global_params_dto_1.GlobalParamsDto]),
     __metadata("design:returntype", Promise)
 ], ComissionController.prototype, "getGlobalParams", null);
 ComissionController = __decorate([
-    (0, common_1.Controller)('comission'),
+    (0, common_1.Controller)("comission"),
     __param(1, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
     __metadata("design:paramtypes", [comission_service_1.ComissionService,
         winston_1.Logger])

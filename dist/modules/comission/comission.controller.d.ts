@@ -1,5 +1,5 @@
-import { Logger } from 'winston';
-import { ComissionService } from './comission.service';
+import { Logger } from "winston";
+import { ComissionService } from "./comission.service";
 import { GlobalParamsDto } from "./dto/get-global-params.dto";
 import { InsrtGoodDto } from "./dto/insrt-goods.dto";
 import { GoodsPaidFromEventDto } from "./dto/get-goods-paid-from-event.dto";

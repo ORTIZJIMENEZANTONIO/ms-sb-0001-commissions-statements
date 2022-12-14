@@ -1,9 +1,9 @@
-import { Controller, Inject } from '@nestjs/common';
-import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { Logger } from 'winston';
-import { MessagePattern } from '@nestjs/microservices';
+import { Controller, Inject } from "@nestjs/common";
+import { WINSTON_MODULE_PROVIDER } from "nest-winston";
+import { Logger } from "winston";
+import { MessagePattern } from "@nestjs/microservices";
 
-import { ComissionService } from './comission.service';
+import { ComissionService } from "./comission.service";
 import { GlobalParamsDto } from "./dto/get-global-params.dto";
 import { InsrtGoodDto } from "./dto/insrt-goods.dto";
 import { GoodsPaidFromEventDto } from "./dto/get-goods-paid-from-event.dto";
@@ -18,69 +18,105 @@ import { PctSpecialDto } from "./dto/get-pct.dto";
 import { ComissionSpecialRangeDto } from "./dto/comission-special-range.dto";
 import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
 
-@Controller('comission')
+@Controller("comission")
 export class ComissionController {
   constructor(
     private readonly service: ComissionService,
-    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
   ) {}
 
-  @MessagePattern({ cmd: 'centralCoordinate' })
-  async centralCoordinate(data: CentralCoordinateDto) {}
+  @MessagePattern({ cmd: "centralCoordinate" })
+  async centralCoordinate(data: CentralCoordinateDto) {
+    return await this.service.centralCoordinate(data);
+  }
 
-  @MessagePattern({ cmd: 'calculateCommissionSpecialRange' })
-  async calculateCommissionSpecialRange(data: ComissionSpecialRangeDto) {}
+  @MessagePattern({ cmd: "calculateCommissionSpecialRange" })
+  async calculateCommissionSpecialRange(data: ComissionSpecialRangeDto) {
+    return await this.service.calculateCommissionSpecialRange(data);
+  }
 
-  @MessagePattern({ cmd: 'getPctComissionToSpecial' })
-  async getPctComissionToSpecial(data: PctSpecialDto) {}
+  @MessagePattern({ cmd: "getPctComissionToSpecial" })
+  async getPctComissionToSpecial(data: PctSpecialDto) {
+    return await this.service.getPctComissionToSpecial(data);
+  }
 
-  @MessagePattern({ cmd: 'calculateCommissionRange' })
-  async calculateCommissionRange(data: ComissionRangeDto) {}
+  @MessagePattern({ cmd: "calculateCommissionRange" })
+  async calculateCommissionRange(data: ComissionRangeDto) {
+    return await this.service.calculateCommissionRange(data);
+  }
 
-  @MessagePattern({ cmd: 'getTotalSolds' })
-  async getTotalSolds(data: TotalSoldsDto) {}
+  @MessagePattern({ cmd: "getTotalSolds" })
+  async getTotalSolds(data: TotalSoldsDto) {
+    return await this.service.getTotalSolds(data);
+  }
 
-  @MessagePattern({ cmd: 'calculateCommission' })
-  async calculateCommission(data: CalcCommissionDto) {}
+  @MessagePattern({ cmd: "calculateCommission" })
+  async calculateCommission(data: CalcCommissionDto) {
+    return await this.service.calculateCommission(data);
+  }
 
-  @MessagePattern({ cmd: 'applyGoodsComission' })
-  async applyGoodsComission(data: GoodsComissionDto) {}
+  @MessagePattern({ cmd: "applyGoodsComission" })
+  async applyGoodsComission(data: GoodsComissionDto) {
+    return await this.service.applyGoodsComission(data);
+  }
 
-  @MessagePattern({ cmd: 'calculateComissionTotal' })
-  async calculateComissionTotal(data: ComissionTotalDto) {}
+  @MessagePattern({ cmd: "calculateComissionTotal" })
+  async calculateComissionTotal(data: ComissionTotalDto) {
+    return await this.service.calculateComissionTotal(data);
+  }
 
-  @MessagePattern({ cmd: 'updateComissionData' })
-  async updateComissionData(data: UpdtComissionDto) {}
+  @MessagePattern({ cmd: "updateComissionData" })
+  async updateComissionData(data: UpdtComissionDto) {
+    return await this.service.updateComissionData(data);
+  }
 
-  @MessagePattern({ cmd: 'deleteComission' })
-  async deleteComission(comId: Number) {}
+  @MessagePattern({ cmd: "deleteComission" })
+  async deleteComission(comId: Number) {
+    return await this.service.deleteComission(comId);
+  }
 
-  @MessagePattern({ cmd: 'getGoodsInCalculateComission' })
-  async getGoodsInCalculateComission(comId: Number) {}
+  @MessagePattern({ cmd: "getGoodsInCalculateComission" })
+  async getGoodsInCalculateComission(comId: Number) {
+    return await this.service.getGoodsInCalculateComission(comId);
+  }
 
-  @MessagePattern({ cmd: 'getPaidGoodsInDates' })
-  async getPaidGoodsInDates(data: PaidGoodsInDatesDto) {}
+  @MessagePattern({ cmd: "getPaidGoodsInDates" })
+  async getPaidGoodsInDates(data: PaidGoodsInDatesDto) {
+    return await this.service.getPaidGoodsInDates(data);
+  }
 
-  @MessagePattern({ cmd: 'copyEvenLot' })
-  async copyEvenLot() {}
+  @MessagePattern({ cmd: "copyEvenLot" })
+  async copyEvenLot() {
+    return await this.service.copyEvenLot();
+  }
 
-  @MessagePattern({ cmd: 'markLotsDateGreater' })
-  async markLotsDateGreater(date: Date) {}
+  @MessagePattern({ cmd: "markLotsDateGreater" })
+  async markLotsDateGreater(date: Date) {
+    return await this.service.markLotsDateGreater(date);
+  }
 
-  @MessagePattern({ cmd: 'markLotsDateMinor' })
-  async markLotsDateMinor(date: Date) {}
+  @MessagePattern({ cmd: "markLotsDateMinor" })
+  async markLotsDateMinor(date: Date) {
+    return await this.service.markLotsDateMinor(date);
+  }
 
-  @MessagePattern({ cmd: 'deleteLotsPaymentsDateMinor' })
-  async deleteLotsPaymentsDateMinor(startDate: Date) {}
+  @MessagePattern({ cmd: "deleteLotsPaymentsDateMinor" })
+  async deleteLotsPaymentsDateMinor(startDate: Date) {
+    return await this.service.deleteLotsPaymentsDateMinor(startDate);
+  }
 
-  @MessagePattern({ cmd: 'getGoodsPaidFromEvent' })
-  async getGoodsPaidFromEvent(data: GoodsPaidFromEventDto) {}
+  @MessagePattern({ cmd: "getGoodsPaidFromEvent" })
+  async getGoodsPaidFromEvent(data: GoodsPaidFromEventDto) {
+    return await this.service.getGoodsPaidFromEvent(data);
+  }
 
-  @MessagePattern({ cmd: 'insertGoods' })
-  async insertGoods(data: InsrtGoodDto) {}
+  @MessagePattern({ cmd: "insertGoods" })
+  async insertGoods(data: InsrtGoodDto) {
+    return await this.service.insertGoods(data);
+  }
 
-  @MessagePattern({ cmd: 'getGlobalParams' })
+  @MessagePattern({ cmd: "getGlobalParams" })
   async getGlobalParams(data: GlobalParamsDto): Promise<string> {
-    return "";
+    return await this.service.getGlobalParams(data);
   }
 }
