@@ -1,0 +1,8 @@
+export declare class CoordinatingAuthorityEntity {
+    idTransferer: number | null;
+    idIssuer: number;
+    idAthority: number;
+    idAuthorityIssuerTransferor: number | null;
+    authorityDescription: string | null;
+    idDelegation: number | null;
+}

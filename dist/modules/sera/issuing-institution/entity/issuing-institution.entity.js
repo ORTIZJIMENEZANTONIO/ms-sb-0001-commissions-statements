@@ -1,0 +1,80 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IssuingInstitutionEntity = void 0;
+const typeorm_1 = require("typeorm");
+let IssuingInstitutionEntity = class IssuingInstitutionEntity {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'integer', name: 'no_institucion' }),
+    __metadata("design:type", Number)
+], IssuingInstitutionEntity.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'nombre', length: 100 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "nombre", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'descripcion', length: 100 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "descripcion", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'responsable', length: 100 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "responsable", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'calle', length: 60 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "calle", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'no_interior', length: 10 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "no_interior", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'no_exterior', length: 10 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "no_exterior", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'colonia', length: 60 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "colonia", void 0);
+__decorate([
+    (0, typeorm_1.Column)("integer", { name: "codigo_postal" }),
+    __metadata("design:type", Number)
+], IssuingInstitutionEntity.prototype, "codigo_postal", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'deleg_munic', length: 60 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "deleg_munic", void 0);
+__decorate([
+    (0, typeorm_1.Column)("character varying", { name: 'telefono', length: 20 }),
+    __metadata("design:type", String)
+], IssuingInstitutionEntity.prototype, "telefono", void 0);
+__decorate([
+    (0, typeorm_1.Column)("integer", { name: "no_clasificacion" }),
+    __metadata("design:type", Number)
+], IssuingInstitutionEntity.prototype, "no_clasificacion", void 0);
+__decorate([
+    (0, typeorm_1.Column)("integer", { name: "no_ciudad" }),
+    __metadata("design:type", Number)
+], IssuingInstitutionEntity.prototype, "no_ciudad", void 0);
+__decorate([
+    (0, typeorm_1.Column)("integer", { name: "no_registro" }),
+    __metadata("design:type", Number)
+], IssuingInstitutionEntity.prototype, "no_registro", void 0);
+__decorate([
+    (0, typeorm_1.Column)("integer", { name: "no_transferente" }),
+    __metadata("design:type", Number)
+], IssuingInstitutionEntity.prototype, "no_transferente", void 0);
+IssuingInstitutionEntity = __decorate([
+    (0, typeorm_1.Entity)("cat_instituciones_emisoras", { schema: "sera" })
+], IssuingInstitutionEntity);
+exports.IssuingInstitutionEntity = IssuingInstitutionEntity;
+//# sourceMappingURL=issuing-institution.entity.js.map

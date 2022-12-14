@@ -1,0 +1,40 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GeneralStatusEntity = void 0;
+const typeorm_1 = require("typeorm");
+const swagger_1 = require("@nestjs/swagger");
+let GeneralStatusEntity = class GeneralStatusEntity {
+};
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Identificador del estado' }),
+    (0, swagger_1.ApiProperty)({ example: 'Nombre del estatus del bien material' }),
+    (0, typeorm_1.Column)("character varying", {
+        name: "estatus_bien",
+        length: 30,
+        nullable: true
+    }),
+    __metadata("design:type", String)
+], GeneralStatusEntity.prototype, "statusProperty", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Nombre del estatus general' }),
+    (0, typeorm_1.PrimaryColumn)("character varying", {
+        name: "estatus_general",
+        length: 30,
+        nullable: false
+    }),
+    __metadata("design:type", String)
+], GeneralStatusEntity.prototype, "statusGeneral", void 0);
+GeneralStatusEntity = __decorate([
+    (0, typeorm_1.Entity)("cat_estatus_gral", { schema: "sae_nsbdb" })
+], GeneralStatusEntity);
+exports.GeneralStatusEntity = GeneralStatusEntity;
+//# sourceMappingURL=general-status.entity.js.map
