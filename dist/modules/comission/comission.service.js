@@ -22,11 +22,32 @@ let ComissionService = class ComissionService {
         this.logger = logger;
         this.counter = counter;
     }
+    async centralCoordinate(data) { }
+    async calculateCommissionSpecialRange(data) { }
+    async getPctComissionToSpecial(data) { }
+    async calculateCommissionRange(data) { }
+    async getTotalSolds(data) { }
+    async calculateCommission(data) { }
+    async applyGoodsComission(data) { }
+    async calculateComissionTotal(data) { }
+    async updateComissionData(data) { }
+    async deleteComission(comId) { }
+    async getGoodsInCalculateComission(comId) { }
+    async getPaidGoodsInDates(data) { }
+    async copyEvenLot() { }
+    async markLotsDateGreater(date) { }
+    async markLotsDateMinor(date) { }
+    async deleteLotsPaymentsDateMinor(startDate) { }
+    async getGoodsPaidFromEvent(data) { }
+    async insertGoods(data) { }
+    async getGlobalParams(data) {
+        return "";
+    }
 };
 ComissionService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
-    __param(1, (0, nestjs_prometheus_1.InjectMetric)('comer_comission_served')),
+    __param(1, (0, nestjs_prometheus_1.InjectMetric)("comer_comission_served")),
     __metadata("design:paramtypes", [common_1.Logger,
         prom_client_1.Counter])
 ], ComissionService);
