@@ -260,7 +260,51 @@ export class ComissionService {
   /*
     OBTIENE LOS BIENES PAGADOS DE UN EVENTO
   */
-  async getGoodsPaidFromEvent(data: GoodsPaidFromEventDto) {}
+  async getGoodsPaidFromEvent(data: GoodsPaidFromEventDto) {
+    const { eventId, comId } = data;
+    const ca = await this.entity.query(`
+      SELECT
+        BXL.NO_BIEN as "lbeGoodNumber",
+        CAT.CVMAN as "lbeCvMan",
+        LOT.LOTE_PUBLICO as "lbeLot",
+        coalesce(BXL.PRECIO_SIN_IVA,
+        0) + coalesce(BXL.MONTO_NOAPP_IVA,
+        0) as "lbeSale"
+      FROM
+        sera.COMER_BIENESXLOTE     BXL,
+        sera.COMER_LOTES           LOT,
+        sera.CAT_TRANSFERENTE      CAT
+      WHERE
+        LOT.ID_EVENTO = ${eventId}
+        AND BXL.ID_LOTE = LOT.ID_LOTE
+        AND LOT.ID_ESTATUSVTA = 'PAG'
+        AND BXL.NO_TRANSFERENTE = CAT.NO_TRANSFERENTE
+        AND NOT EXISTS (
+          SELECT
+            1
+          FROM
+            sera.COMER_COMISIONESXBIEN CCB
+          WHERE
+            CCB.NO_BIEN = BXL.NO_BIEN
+            AND CCB.ID_COMCALCULADA = ${comId}
+        );
+    `);
+    let counter = 0;
+    for (const el of ca) {
+      const body = {
+        comId1: comId,
+        event1: eventId,
+        good1: el.lbeGoodNumber,
+        com1: 0,
+        lot1: el.lbeLot,
+        cvMan1: el.lbeCvMan,
+        sold1: el.lbeSale,
+      };
+      const inserted = await this.insertGoods(body);
+      if (inserted) counter++;
+    }
+    return `${counter} registros creados`;
+  }
 
   /*
     SE ENCARGA DE INSERTAR LOS DATOS DE LOS BIENES

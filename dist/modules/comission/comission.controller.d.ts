@@ -33,7 +33,7 @@ export declare class ComissionController {
     markLotsDateGreater(date: Date): Promise<void>;
     markLotsDateMinor(date: Date): Promise<void>;
     deleteLotsPaymentsDateMinor(startDate: Date): Promise<void>;
-    getGoodsPaidFromEvent(data: GoodsPaidFromEventDto): Promise<void>;
+    getGoodsPaidFromEvent(data: GoodsPaidFromEventDto): Promise<string>;
     insertGoods(data: InsrtGoodDto): Promise<any>;
     getGlobalParams(data: GlobalParamsDto): Promise<string>;
 }
