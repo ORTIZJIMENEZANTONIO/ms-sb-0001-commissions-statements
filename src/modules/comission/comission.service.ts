@@ -336,4 +336,4 @@ export class ComissionService {
     return "OK";
   }
 }
-/* 12 terminadas y 19 totales */
+/* 11 Sin terminar y 19 totales */
