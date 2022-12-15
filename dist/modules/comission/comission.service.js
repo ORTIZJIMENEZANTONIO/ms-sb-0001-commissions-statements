@@ -110,7 +110,26 @@ let ComissionService = class ComissionService {
     async markLotsDateMinor(date) { }
     async deleteLotsPaymentsDateMinor(startDate) { }
     async getGoodsPaidFromEvent(data) { }
-    async insertGoods(data) { }
+    async insertGoods(data) {
+        const { comId1, event1, good1, com1, lot1, cvMan1, sold1 } = data;
+        const body = {
+            comCalculatedId: comId1,
+            eventId: event1,
+            goodNumber: good1,
+            comisionAmount: com1,
+            lot: lot1,
+            cvMan: cvMan1,
+            sale: sold1,
+            comments: null,
+            itsProcessed: "S",
+        };
+        try {
+            return await this.entity.save(body);
+        }
+        catch (err) {
+            return err.detail;
+        }
+    }
     async getGlobalParams(data) {
         return "OK";
     }

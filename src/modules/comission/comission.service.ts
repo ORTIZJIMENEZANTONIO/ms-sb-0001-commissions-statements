@@ -186,7 +186,25 @@ export class ComissionService {
   /*
     SE ENCARGA DE INSERTAR LOS DATOS DE LOS BIENES
   */
-  async insertGoods(data: InsrtGoodDto) {}
+  async insertGoods(data: InsrtGoodDto) {
+    const { comId1, event1, good1, com1, lot1, cvMan1, sold1 } = data;
+    const body = {
+      comCalculatedId: comId1,
+      eventId: event1,
+      goodNumber: good1,
+      comisionAmount: com1,
+      lot: lot1,
+      cvMan: cvMan1,
+      sale: sold1,
+      comments: null,
+      itsProcessed: "S",
+    };
+    try {
+      return await this.entity.save(body);
+    } catch (err) {
+      return err.detail;
+    }
+  }
 
   /*
     OBTIENE PARAMETROS GLOBALES

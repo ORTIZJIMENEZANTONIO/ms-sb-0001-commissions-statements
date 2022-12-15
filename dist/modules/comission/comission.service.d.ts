@@ -37,6 +37,6 @@ export declare class ComissionService {
     markLotsDateMinor(date: Date): Promise<void>;
     deleteLotsPaymentsDateMinor(startDate: Date): Promise<void>;
     getGoodsPaidFromEvent(data: GoodsPaidFromEventDto): Promise<void>;
-    insertGoods(data: InsrtGoodDto): Promise<void>;
+    insertGoods(data: InsrtGoodDto): Promise<any>;
     getGlobalParams(data: GlobalParamsDto): Promise<string>;
 }

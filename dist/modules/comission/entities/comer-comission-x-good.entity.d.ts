@@ -1,12 +1,12 @@
 export declare class ComerComissionxbGoodEntity {
-    id: string;
-    eventId: string;
+    comCalculatedId: Number;
+    eventId: Number;
     goodNumber: Number;
     comisionAmount: Number;
     lot: Number;
-    cvMan: string;
+    cvMan: String;
     sale: Number;
-    comments: string | null;
-    itsProcessed: string | null;
+    comments: String | null;
+    itsProcessed: String | null;
     tcSale: Number | null;
 }

@@ -20,8 +20,8 @@ __decorate([
         precision: 10,
         scale: 0,
     }),
-    __metadata("design:type", String)
-], ComerComissionxbGoodEntity.prototype, "id", void 0);
+    __metadata("design:type", Number)
+], ComerComissionxbGoodEntity.prototype, "comCalculatedId", void 0);
 __decorate([
     (0, typeorm_1.Column)("numeric", {
         primary: true,
@@ -29,7 +29,7 @@ __decorate([
         precision: 10,
         scale: 0,
     }),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], ComerComissionxbGoodEntity.prototype, "eventId", void 0);
 __decorate([
     (0, typeorm_1.Column)("numeric", {

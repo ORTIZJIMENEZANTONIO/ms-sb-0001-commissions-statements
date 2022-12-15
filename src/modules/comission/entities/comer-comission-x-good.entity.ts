@@ -8,7 +8,7 @@ export class ComerComissionxbGoodEntity {
     precision: 10,
     scale: 0,
   })
-  id: string;
+  comCalculatedId: Number;
 
   @Column("numeric", {
     primary: true,
@@ -16,7 +16,7 @@ export class ComerComissionxbGoodEntity {
     precision: 10,
     scale: 0,
   })
-  eventId: string;
+  eventId: Number;
 
   @Column("numeric", {
     primary: true,
@@ -33,7 +33,7 @@ export class ComerComissionxbGoodEntity {
   lot: Number;
 
   @Column("character varying", { name: "cvman", length: 8 })
-  cvMan: string;
+  cvMan: String;
 
   @Column("numeric", { name: "venta", precision: 19, scale: 2 })
   sale: Number;
@@ -43,10 +43,10 @@ export class ComerComissionxbGoodEntity {
     nullable: true,
     length: 1000,
   })
-  comments: string | null;
+  comments: String | null;
 
   @Column("character varying", { name: "seprocesa", nullable: true, length: 1 })
-  itsProcessed: string | null;
+  itsProcessed: String | null;
 
   @Column("numeric", {
     name: "venta_tc",
