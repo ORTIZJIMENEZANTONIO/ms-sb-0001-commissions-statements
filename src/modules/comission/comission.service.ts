@@ -292,3 +292,4 @@ export class ComissionService {
     return "OK";
   }
 }
+/* 12 terminadas y 19 totales */
