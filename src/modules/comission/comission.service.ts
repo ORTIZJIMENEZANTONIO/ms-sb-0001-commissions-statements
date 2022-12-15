@@ -141,12 +141,29 @@ export class ComissionService {
   /*
     ACTUALIZA LOS DATOS DE LA COMISION
 	***************************************/
-  async updateComissionData(data: UpdtComissionDto) {}
+  async updateComissionData(data: UpdtComissionDto) {
+    const { comId, comission, goodNumber } = data;
+
+    return await this.entity
+      .createQueryBuilder()
+      .update(ComerComissionxbGoodEntity)
+      .set({ comisionAmount: comission })
+      .where(`ID_COMCALCULADA = ${comId}`)
+      .andWhere(` NO_BIEN = ${goodNumber}`)
+      .execute();
+  }
 
   /*
     ELIMINA EL RESULTA DEL CALCULO DE LA CONVERSION A NUMERARIO
   */
-  async deleteComission(comId: Number) {}
+  async deleteComission(comId: Number) {
+    return await this.entity
+      .createQueryBuilder()
+      .delete()
+      .from(ComerComissionxbGoodEntity)
+      .where(`ID_COMCALCULADA = ${comId}`)
+      .execute();
+  }
 
   /*
     OBTIENE LOS BIENES QUE PARTICIPAN EN EL CALCULO DE LA COMISION

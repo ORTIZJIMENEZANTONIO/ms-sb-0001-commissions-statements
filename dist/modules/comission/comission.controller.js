@@ -61,7 +61,8 @@ let ComissionController = class ComissionController {
         return await this.service.calculateComissionTotal(data);
     }
     async updateComissionData(data) {
-        return await this.service.updateComissionData(data);
+        const { affected } = await this.service.updateComissionData(data);
+        return affected;
     }
     async deleteComission(comId) {
         return await this.service.deleteComission(comId);

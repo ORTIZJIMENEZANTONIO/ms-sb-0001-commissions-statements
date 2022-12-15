@@ -67,7 +67,8 @@ export class ComissionController {
 
   @MessagePattern({ cmd: "updateComissionData" })
   async updateComissionData(data: UpdtComissionDto) {
-    return await this.service.updateComissionData(data);
+    const { affected} = await this.service.updateComissionData(data);
+    return affected
   }
 
   @MessagePattern({ cmd: "deleteComission" })

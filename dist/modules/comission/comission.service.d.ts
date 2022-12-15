@@ -28,8 +28,8 @@ export declare class ComissionService {
     calculateCommission(data: CalcCommissionDto): Promise<void>;
     applyGoodsComission(data: GoodsComissionDto): Promise<void>;
     calculateComissionTotal(data: ComissionTotalDto): Promise<void>;
-    updateComissionData(data: UpdtComissionDto): Promise<void>;
-    deleteComission(comId: Number): Promise<void>;
+    updateComissionData(data: UpdtComissionDto): Promise<import("typeorm").UpdateResult>;
+    deleteComission(comId: Number): Promise<import("typeorm").DeleteResult>;
     getGoodsInCalculateComission(comId: Number): Promise<void>;
     getPaidGoodsInDates(data: PaidGoodsInDatesDto): Promise<void>;
     copyEvenLot(): Promise<void>;

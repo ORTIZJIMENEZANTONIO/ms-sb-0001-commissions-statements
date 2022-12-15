@@ -101,8 +101,24 @@ let ComissionService = class ComissionService {
     async calculateCommission(data) { }
     async applyGoodsComission(data) { }
     async calculateComissionTotal(data) { }
-    async updateComissionData(data) { }
-    async deleteComission(comId) { }
+    async updateComissionData(data) {
+        const { comId, comission, goodNumber } = data;
+        return await this.entity
+            .createQueryBuilder()
+            .update(comer_comission_x_good_entity_1.ComerComissionxbGoodEntity)
+            .set({ comisionAmount: comission })
+            .where(`ID_COMCALCULADA = ${comId}`)
+            .andWhere(` NO_BIEN = ${goodNumber}`)
+            .execute();
+    }
+    async deleteComission(comId) {
+        return await this.entity
+            .createQueryBuilder()
+            .delete()
+            .from(comer_comission_x_good_entity_1.ComerComissionxbGoodEntity)
+            .where(`ID_COMCALCULADA = ${comId}`)
+            .execute();
+    }
     async getGoodsInCalculateComission(comId) { }
     async getPaidGoodsInDates(data) { }
     async copyEvenLot() { }

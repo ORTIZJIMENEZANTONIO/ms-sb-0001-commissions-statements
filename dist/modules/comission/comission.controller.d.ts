@@ -25,8 +25,8 @@ export declare class ComissionController {
     calculateCommission(data: CalcCommissionDto): Promise<void>;
     applyGoodsComission(data: GoodsComissionDto): Promise<void>;
     calculateComissionTotal(data: ComissionTotalDto): Promise<void>;
-    updateComissionData(data: UpdtComissionDto): Promise<void>;
-    deleteComission(comId: Number): Promise<void>;
+    updateComissionData(data: UpdtComissionDto): Promise<number>;
+    deleteComission(comId: Number): Promise<import("typeorm").DeleteResult>;
     getGoodsInCalculateComission(comId: Number): Promise<void>;
     getPaidGoodsInDates(data: PaidGoodsInDatesDto): Promise<void>;
     copyEvenLot(): Promise<void>;
