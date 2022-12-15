@@ -84,7 +84,6 @@ let ComissionService = class ComissionService {
                 obpEndPct = obpEndPct + (d.saleAmount / obpAmount) * d.pctCom;
             }
         }
-        console.log(obpAmount, comXRange);
         return obpEndPct;
     }
     async calculateCommissionRange(data) { }

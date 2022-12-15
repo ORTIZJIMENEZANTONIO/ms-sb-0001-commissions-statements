@@ -101,8 +101,6 @@ export class ComissionService {
       }
     }
 
-    console.log(obpAmount, comXRange);
-
     return obpEndPct;
   }
 
