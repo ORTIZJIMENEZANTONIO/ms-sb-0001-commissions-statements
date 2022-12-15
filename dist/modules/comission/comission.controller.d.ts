@@ -19,9 +19,9 @@ export declare class ComissionController {
     constructor(service: ComissionService, logger: Logger);
     centralCoordinate(data: CentralCoordinateDto): Promise<void>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<void>;
-    getPctComissionToSpecial(data: PctSpecialDto): Promise<void>;
+    getPctComissionToSpecial(data: PctSpecialDto): Promise<Number>;
     calculateCommissionRange(data: ComissionRangeDto): Promise<void>;
-    getTotalSolds(data: TotalSoldsDto): Promise<Number>;
+    getTotalSolds(data: TotalSoldsDto): Promise<number>;
     calculateCommission(data: CalcCommissionDto): Promise<void>;
     applyGoodsComission(data: GoodsComissionDto): Promise<void>;
     calculateComissionTotal(data: ComissionTotalDto): Promise<void>;

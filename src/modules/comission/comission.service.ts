@@ -41,7 +41,70 @@ export class ComissionService {
   /**********************************
    	OBTIENE EL PCT DE COMISION PARA RANGO ESPECIAL
   *******************************************************************************************************************/
-  async getPctComissionToSpecial(data: PctSpecialDto) {}
+  async getPctComissionToSpecial(data: PctSpecialDto): Promise<Number> {
+    const { comId2, camTp2 } = data;
+    let obpAmount = 0;
+    let obpPctCom = 0;
+    let obpStartAmount = 0;
+    let obpEndAmount = 0;
+    let obpAux = 0;
+    let obpSubAux = 0;
+    let i = 0;
+    let obpEndPct = 0;
+    const obp = await this.entity.query(`
+      SELECT
+        coalesce(C2.PCT_COMISION,0) as "startAmount",
+        C2.MONTO_INI as "endAmount",
+        coalesce(C2.MONTO_FIN, C2.MONTO_INI*5) as "pctCom"
+      FROM
+        sera.COMER_COMCALCULADA    C1,
+        sera.COMER_COMI_X_TERCEROS C2
+      WHERE
+        C1.ID_COMCALCULADA = ${comId2}
+        AND C1.ID_TERCEROCOMER = C2.ID_TERCEROCOMER
+      ORDER BY
+        C2.MONTO_INI DESC;
+    `);
+    const comXRange = [];
+    obpAmount = await this.getTotalSolds({
+      comId2: comId2,
+      camTp2: camTp2,
+    });
+
+    for (const el of obp) {
+      obpPctCom = el.pctCom;
+      obpStartAmount = el.startAmount;
+      obpEndAmount = el.endAmount;
+      const body = {
+        startAmount: obpStartAmount,
+        endAmount: obpEndAmount,
+        pctCom: obpPctCom,
+        used: "N",
+        saleAmount: 0.0,
+      };
+      comXRange.push(body);
+      i++;
+    }
+    obpAux = obpAmount;
+
+    for (const d of comXRange) {
+      if (obpAux >= d.startAmount && obpAux <= d.endAmount) {
+        obpSubAux = obpAux;
+        d.used = "S";
+        obpSubAux = obpSubAux - d.startAmount;
+        d.saleAmount = obpSubAux;
+        obpAux = obpAux - obpSubAux;
+      }
+
+      if (d.used == "S") {
+        obpEndPct = obpEndPct + (d.saleAmount / obpAmount) * d.pctCom;
+      }
+    }
+
+    console.log(obpAmount, comXRange);
+
+    return obpEndPct;
+  }
 
   /**********************************
     CALCULA LA COMISION EN UN RANGO ESPECIFICO
@@ -51,7 +114,7 @@ export class ComissionService {
   /**********************************
     OBTIENE EL TOTAL DE VENTAS
 	***************************************/
-  async getTotalSolds(data: TotalSoldsDto): Promise<Number> {
+  async getTotalSolds(data: TotalSoldsDto): Promise<number> {
     const { comId2, camTp2 } = data;
     const queryComission = this.entity
       .createQueryBuilder("c")
