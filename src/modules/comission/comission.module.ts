@@ -7,9 +7,12 @@ import {
 
 import { ComissionService } from "./comission.service";
 import { ComissionController } from "./comission.controller";
+import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([])],
+  imports: [TypeOrmModule.forFeature([
+    ComerComissionxbGoodEntity
+  ])],
   controllers: [ComissionController],
   providers: [
     ComissionService,

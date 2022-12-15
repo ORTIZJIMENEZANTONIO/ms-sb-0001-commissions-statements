@@ -1,4 +1,5 @@
 import { Logger } from "@nestjs/common";
+import { Repository } from "typeorm";
 import { Counter } from "prom-client";
 import { GlobalParamsDto } from "./dto/get-global-params.dto";
 import { InsrtGoodDto } from "./dto/insrt-goods.dto";
@@ -13,15 +14,17 @@ import { ComissionRangeDto } from "./dto/calc-comission-range.dto";
 import { PctSpecialDto } from "./dto/get-pct.dto";
 import { ComissionSpecialRangeDto } from "./dto/comission-special-range.dto";
 import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
+import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 export declare class ComissionService {
+    private entity;
     private readonly logger;
     counter: Counter<string>;
-    constructor(logger: Logger, counter: Counter<string>);
+    constructor(entity: Repository<ComerComissionxbGoodEntity>, logger: Logger, counter: Counter<string>);
     centralCoordinate(data: CentralCoordinateDto): Promise<void>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<void>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<void>;
     calculateCommissionRange(data: ComissionRangeDto): Promise<void>;
-    getTotalSolds(data: TotalSoldsDto): Promise<void>;
+    getTotalSolds(data: TotalSoldsDto): Promise<Number>;
     calculateCommission(data: CalcCommissionDto): Promise<void>;
     applyGoodsComission(data: GoodsComissionDto): Promise<void>;
     calculateComissionTotal(data: ComissionTotalDto): Promise<void>;

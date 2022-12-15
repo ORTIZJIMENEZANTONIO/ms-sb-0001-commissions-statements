@@ -18,12 +18,13 @@ import { ComissionRangeDto } from "./dto/calc-comission-range.dto";
 import { PctSpecialDto } from "./dto/get-pct.dto";
 import { ComissionSpecialRangeDto } from "./dto/comission-special-range.dto";
 import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
+import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 
 @Injectable()
 export class ComissionService {
   constructor(
-    // @InjectRepository(ComerPenaltyEntity)
-    // private entity: Repository<ComerPenaltyEntity>,
+    @InjectRepository(ComerComissionxbGoodEntity)
+    private entity: Repository<ComerComissionxbGoodEntity>,
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
     @InjectMetric("comer_comission_served") public counter: Counter<string>
   ) {}
@@ -31,7 +32,6 @@ export class ComissionService {
 		COORDINA LOS LLAMADOS A PROCESOS
 	*******************************************************************************************************************/
   async centralCoordinate(data: CentralCoordinateDto) {}
-
 
   /*******************************************************************************************************************
 		CALCULA LA COMISION EN UN RANGO ESPECIFICO ESPECIAL CASO EBAY
@@ -51,7 +51,16 @@ export class ComissionService {
   /**********************************
     OBTIENE EL TOTAL DE VENTAS
 	***************************************/
-  async getTotalSolds(data: TotalSoldsDto) {}
+  async getTotalSolds(data: TotalSoldsDto): Promise<Number> {
+    const { comId2, camTp2 } = data;
+    const queryComission = this.entity
+      .createQueryBuilder("c")
+      .select([
+        `SUM( (CASE when SEPROCESA = 'S' then VENTA else 0 end)/ ${camTp2})`,
+      ])
+      .where(`ID_COMCALCULADA = ${comId2}`);
+    return (await queryComission.getRawOne()).sum ?? 0;
+  }
 
   /**********************************
     CALCULA LA COMISION
@@ -122,6 +131,6 @@ export class ComissionService {
     OBTIENE PARAMETROS GLOBALES
   */
   async getGlobalParams(data: GlobalParamsDto): Promise<string> {
-    return "";
+    return "OK";
   }
 }

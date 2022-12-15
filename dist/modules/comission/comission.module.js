@@ -12,11 +12,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const nestjs_prometheus_1 = require("@willsoto/nestjs-prometheus");
 const comission_service_1 = require("./comission.service");
 const comission_controller_1 = require("./comission.controller");
+const comer_comission_x_good_entity_1 = require("./entities/comer-comission-x-good.entity");
 let ComissionModule = class ComissionModule {
 };
 ComissionModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([
+                comer_comission_x_good_entity_1.ComerComissionxbGoodEntity
+            ])],
         controllers: [comission_controller_1.ComissionController],
         providers: [
             comission_service_1.ComissionService,

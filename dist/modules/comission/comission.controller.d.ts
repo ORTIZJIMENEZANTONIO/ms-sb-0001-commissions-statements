@@ -21,7 +21,7 @@ export declare class ComissionController {
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<void>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<void>;
     calculateCommissionRange(data: ComissionRangeDto): Promise<void>;
-    getTotalSolds(data: TotalSoldsDto): Promise<void>;
+    getTotalSolds(data: TotalSoldsDto): Promise<Number>;
     calculateCommission(data: CalcCommissionDto): Promise<void>;
     applyGoodsComission(data: GoodsComissionDto): Promise<void>;
     calculateComissionTotal(data: ComissionTotalDto): Promise<void>;
