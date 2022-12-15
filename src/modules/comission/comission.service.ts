@@ -31,24 +31,24 @@ export class ComissionService {
   /*******************************************************************************************************************
 		COORDINA LOS LLAMADOS A PROCESOS
 	*******************************************************************************************************************/
-  async centralCoordinate(data: CentralCoordinateDto) {
-    const { comId, tpCam } = data;
-    const pctAux = await this.getPctComissionToSpecial({
-      comId2: comId,
-      camTp2: tpCam,
-    });
-
-    return await this.applyGoodsComission({
-      comId3: comId,
-      camTp3: tpCam,
-      porc3: pctAux,
-    });
-  }
+  async centralCoordinate(data: CentralCoordinateDto) {}
 
   /*******************************************************************************************************************
 		CALCULA LA COMISION EN UN RANGO ESPECIFICO ESPECIAL CASO EBAY
 	*******************************************************************************************************************/
-  async calculateCommissionSpecialRange(data: ComissionSpecialRangeDto) {}
+  async calculateCommissionSpecialRange(data: ComissionSpecialRangeDto) {
+    const { comId1, tpCam1 } = data;
+    const pctAux = await this.getPctComissionToSpecial({
+      comId2: comId1,
+      camTp2: tpCam1,
+    });
+
+    return await this.applyGoodsComission({
+      comId3: comId1,
+      camTp3: tpCam1,
+      porc3: pctAux,
+    });
+  }
 
   /**********************************
    	OBTIENE EL PCT DE COMISION PARA RANGO ESPECIAL
@@ -119,7 +119,36 @@ export class ComissionService {
   /**********************************
     CALCULA LA COMISION EN UN RANGO ESPECIFICO
 	*******************************************************************************************************************/
-  async calculateCommissionRange(data: ComissionRangeDto) {}
+  async calculateCommissionRange(data: ComissionRangeDto) {
+    const { comId1, camTp1 } = data;
+    const crAmount = await this.getTotalSolds({
+      comId2: comId1,
+      camTp2: camTp1,
+    });
+    const crPctCom =
+      (
+        await this.entity.query(`
+      SELECT
+        coalesce (C2.PCT_COMISION,
+        0) as "crPctCom"
+      FROM
+        COMER_COMCALCULADA    C1,
+        COMER_COMI_X_TERCEROS C2
+      WHERE
+        C1.ID_COMCALCULADA = ${comId1}
+        AND coalesce(C2.MONTO_FIN,
+        ${crAmount}) >= ${crAmount}
+        AND ${crAmount} >= C2.MONTO_INI
+        AND C1.ID_TERCEROCOMER = C2.ID_TERCEROCOMER;
+    `)
+      )[0].crPctCom ?? 0;
+
+    return await this.applyGoodsComission({
+      comId3: comId1,
+      camTp3: camTp1,
+      porc3: crPctCom,
+    });
+  }
 
   /**********************************
     OBTIENE EL TOTAL DE VENTAS

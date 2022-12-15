@@ -20,10 +20,10 @@ export declare class ComissionService {
     private readonly logger;
     counter: Counter<string>;
     constructor(entity: Repository<ComerComissionxbGoodEntity>, logger: Logger, counter: Counter<string>);
-    centralCoordinate(data: CentralCoordinateDto): Promise<string>;
-    calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<void>;
+    centralCoordinate(data: CentralCoordinateDto): Promise<void>;
+    calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<string>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<Number>;
-    calculateCommissionRange(data: ComissionRangeDto): Promise<void>;
+    calculateCommissionRange(data: ComissionRangeDto): Promise<string>;
     getTotalSolds(data: TotalSoldsDto): Promise<number>;
     calculateCommission(data: CalcCommissionDto): Promise<void>;
     applyGoodsComission(data: GoodsComissionDto): Promise<string>;
