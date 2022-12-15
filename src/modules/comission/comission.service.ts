@@ -28,14 +28,14 @@ export class ComissionService {
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
     @InjectMetric("comer_comission_served") public counter: Counter<string>
   ) {}
-  /*******************************************************************************************************************
+  /*
 		COORDINA LOS LLAMADOS A PROCESOS
-	*******************************************************************************************************************/
+	*/
   async centralCoordinate(data: CentralCoordinateDto) {}
 
-  /*******************************************************************************************************************
+  /*
 		CALCULA LA COMISION EN UN RANGO ESPECIFICO ESPECIAL CASO EBAY
-	*******************************************************************************************************************/
+	*/
   async calculateCommissionSpecialRange(data: ComissionSpecialRangeDto) {
     const { comId1, tpCam1 } = data;
     const pctAux = await this.getPctComissionToSpecial({
@@ -50,9 +50,9 @@ export class ComissionService {
     });
   }
 
-  /**********************************
+  /*
    	OBTIENE EL PCT DE COMISION PARA RANGO ESPECIAL
-  *******************************************************************************************************************/
+  */
   async getPctComissionToSpecial(data: PctSpecialDto): Promise<Number> {
     const { comId2, camTp2 } = data;
     let obpAmount = 0;
@@ -116,9 +116,9 @@ export class ComissionService {
     return obpEndPct;
   }
 
-  /**********************************
+  /*
     CALCULA LA COMISION EN UN RANGO ESPECIFICO
-	*******************************************************************************************************************/
+	*/
   async calculateCommissionRange(data: ComissionRangeDto) {
     const { comId1, camTp1 } = data;
     const crAmount = await this.getTotalSolds({
@@ -150,9 +150,9 @@ export class ComissionService {
     });
   }
 
-  /**********************************
+  /*
     OBTIENE EL TOTAL DE VENTAS
-	***************************************/
+	*/
   async getTotalSolds(data: TotalSoldsDto): Promise<number> {
     const { comId2, camTp2 } = data;
     const queryComission = this.entity
@@ -164,14 +164,14 @@ export class ComissionService {
     return (await queryComission.getRawOne()).sum ?? 0;
   }
 
-  /**********************************
+  /*
     CALCULA LA COMISION Preguntar
-  *******************************************************************************************************************/
+  */
   async calculateCommission(data: CalcCommissionDto) {}
 
-  /**********************************
+  /*
     APLICA LA COMISION A LOS BIENES
-	***************************************/
+	*/
   async applyGoodsComission(data: GoodsComissionDto) {
     const { comId3, camTp3, porc3 } = data;
     const ac = await this.entity
@@ -195,14 +195,14 @@ export class ComissionService {
     return `${counter} registros actualizados`;
   }
 
-  /********************************************************
+  /*
   	CALCULA LA COMISION APLICANDO A LA VENTA EL PORCENTAJE DE COMISION
-	**********************************************************************************/
+	*/
   async calculateComissionTotal(data: ComissionTotalDto) {}
 
   /*
     ACTUALIZA LOS DATOS DE LA COMISION
-	***************************************/
+	*/
   async updateComissionData(data: UpdtComissionDto) {
     const { comId, comission, goodNumber } = data;
 
