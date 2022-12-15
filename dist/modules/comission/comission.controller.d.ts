@@ -17,7 +17,7 @@ export declare class ComissionController {
     private readonly service;
     private readonly logger;
     constructor(service: ComissionService, logger: Logger);
-    centralCoordinate(data: CentralCoordinateDto): Promise<void>;
+    centralCoordinate(data: CentralCoordinateDto): Promise<string>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<void>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<Number>;
     calculateCommissionRange(data: ComissionRangeDto): Promise<void>;

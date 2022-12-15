@@ -31,7 +31,19 @@ export class ComissionService {
   /*******************************************************************************************************************
 		COORDINA LOS LLAMADOS A PROCESOS
 	*******************************************************************************************************************/
-  async centralCoordinate(data: CentralCoordinateDto) {}
+  async centralCoordinate(data: CentralCoordinateDto) {
+    const { comId, tpCam } = data;
+    const pctAux = await this.getPctComissionToSpecial({
+      comId2: comId,
+      camTp2: tpCam,
+    });
+
+    return await this.applyGoodsComission({
+      comId3: comId,
+      camTp3: tpCam,
+      porc3: pctAux,
+    });
+  }
 
   /*******************************************************************************************************************
 		CALCULA LA COMISION EN UN RANGO ESPECIFICO ESPECIAL CASO EBAY

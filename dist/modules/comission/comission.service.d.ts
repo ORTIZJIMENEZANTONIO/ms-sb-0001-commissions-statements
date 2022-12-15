@@ -20,7 +20,7 @@ export declare class ComissionService {
     private readonly logger;
     counter: Counter<string>;
     constructor(entity: Repository<ComerComissionxbGoodEntity>, logger: Logger, counter: Counter<string>);
-    centralCoordinate(data: CentralCoordinateDto): Promise<void>;
+    centralCoordinate(data: CentralCoordinateDto): Promise<string>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<void>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<Number>;
     calculateCommissionRange(data: ComissionRangeDto): Promise<void>;

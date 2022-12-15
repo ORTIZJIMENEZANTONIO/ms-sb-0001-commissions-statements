@@ -26,7 +26,18 @@ let ComissionService = class ComissionService {
         this.logger = logger;
         this.counter = counter;
     }
-    async centralCoordinate(data) { }
+    async centralCoordinate(data) {
+        const { comId, tpCam } = data;
+        const pctAux = await this.getPctComissionToSpecial({
+            comId2: comId,
+            camTp2: tpCam,
+        });
+        return await this.applyGoodsComission({
+            comId3: comId,
+            camTp3: tpCam,
+            porc3: pctAux,
+        });
+    }
     async calculateCommissionSpecialRange(data) { }
     async getPctComissionToSpecial(data) {
         const { comId2, camTp2 } = data;

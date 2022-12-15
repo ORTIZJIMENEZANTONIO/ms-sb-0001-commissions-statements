@@ -1,4 +1,4 @@
 export declare class CentralCoordinateDto {
     comId: Number;
-    escalGood: Number;
+    tpCam: Number;
 }
