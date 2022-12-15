@@ -124,14 +124,35 @@ export class ComissionService {
   }
 
   /**********************************
-    CALCULA LA COMISION
+    CALCULA LA COMISION Preguntar
   *******************************************************************************************************************/
   async calculateCommission(data: CalcCommissionDto) {}
 
   /**********************************
     APLICA LA COMISION A LOS BIENES
 	***************************************/
-  async applyGoodsComission(data: GoodsComissionDto) {}
+  async applyGoodsComission(data: GoodsComissionDto) {
+    const { comId3, camTp3, porc3 } = data;
+    const ac = await this.entity
+      .createQueryBuilder()
+      .select([
+        `NO_BIEN as "goodNumber"`,
+        `${porc3} * (case when SEPROCESA = 'S' then VENTA else
+				0 end ) / ${camTp3} as sale`,
+      ])
+      .where(`ID_COMCALCULADA = ${comId3}`)
+      .getRawMany();
+    let counter = 0;
+    for (const el of ac) {
+      const { affected } = await this.updateComissionData({
+        comId: comId3,
+        comission: el.sale,
+        goodNumber: el.goodNumber,
+      });
+      counter = counter + affected;
+    }
+    return `${counter} registros actualizados`;
+  }
 
   /********************************************************
   	CALCULA LA COMISION APLICANDO A LA VENTA EL PORCENTAJE DE COMISION

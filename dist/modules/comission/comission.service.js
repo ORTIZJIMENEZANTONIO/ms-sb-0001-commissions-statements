@@ -99,7 +99,28 @@ let ComissionService = class ComissionService {
         return (_a = (await queryComission.getRawOne()).sum) !== null && _a !== void 0 ? _a : 0;
     }
     async calculateCommission(data) { }
-    async applyGoodsComission(data) { }
+    async applyGoodsComission(data) {
+        const { comId3, camTp3, porc3 } = data;
+        const ac = await this.entity
+            .createQueryBuilder()
+            .select([
+            `NO_BIEN as "goodNumber"`,
+            `${porc3} * (case when SEPROCESA = 'S' then VENTA else
+				0 end ) / ${camTp3} as sale`,
+        ])
+            .where(`ID_COMCALCULADA = ${comId3}`)
+            .getRawMany();
+        let counter = 0;
+        for (const el of ac) {
+            const { affected } = await this.updateComissionData({
+                comId: comId3,
+                comission: el.sale,
+                goodNumber: el.goodNumber,
+            });
+            counter = counter + affected;
+        }
+        return `${counter} registros actualizados`;
+    }
     async calculateComissionTotal(data) { }
     async updateComissionData(data) {
         const { comId, comission, goodNumber } = data;

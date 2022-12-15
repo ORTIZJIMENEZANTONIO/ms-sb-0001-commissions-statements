@@ -23,7 +23,7 @@ export declare class ComissionController {
     calculateCommissionRange(data: ComissionRangeDto): Promise<void>;
     getTotalSolds(data: TotalSoldsDto): Promise<number>;
     calculateCommission(data: CalcCommissionDto): Promise<void>;
-    applyGoodsComission(data: GoodsComissionDto): Promise<void>;
+    applyGoodsComission(data: GoodsComissionDto): Promise<string>;
     calculateComissionTotal(data: ComissionTotalDto): Promise<void>;
     updateComissionData(data: UpdtComissionDto): Promise<number>;
     deleteComission(comId: Number): Promise<import("typeorm").DeleteResult>;
