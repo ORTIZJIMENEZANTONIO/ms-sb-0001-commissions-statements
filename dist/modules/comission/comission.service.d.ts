@@ -15,11 +15,17 @@ import { PctSpecialDto } from "./dto/get-pct.dto";
 import { ComissionSpecialRangeDto } from "./dto/comission-special-range.dto";
 import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
 import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
+import { ComerPaymentRefEntity } from "./entities/comer-payment-ref.entity";
+import { ComerLotEntity } from "./entities/comer-lot.entity";
 export declare class ComissionService {
     private entity;
+    private entityLot;
+    private entityPayment;
     private readonly logger;
     counter: Counter<string>;
-    constructor(entity: Repository<ComerComissionxbGoodEntity>, logger: Logger, counter: Counter<string>);
+    protected lbfLots: any[];
+    protected lbfPayment: any[];
+    constructor(entity: Repository<ComerComissionxbGoodEntity>, entityLot: Repository<ComerLotEntity>, entityPayment: Repository<ComerPaymentRefEntity>, logger: Logger, counter: Counter<string>);
     centralCoordinate(data: CentralCoordinateDto): Promise<void>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<string>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<Number>;
@@ -35,7 +41,7 @@ export declare class ComissionService {
     copyEvenLot(): Promise<void>;
     markLotsDateGreater(date: Date): Promise<void>;
     markLotsDateMinor(date: Date): Promise<void>;
-    deleteLotsPaymentsDateMinor(startDate: Date): Promise<void>;
+    deleteLotsPaymentsDateMinor(startDate: Date): Promise<string>;
     getGoodsPaidFromEvent(data: GoodsPaidFromEventDto): Promise<string>;
     insertGoods(data: InsrtGoodDto): Promise<any>;
     getGlobalParams(data: GlobalParamsDto): Promise<string>;

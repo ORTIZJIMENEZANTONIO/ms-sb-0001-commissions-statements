@@ -20,11 +20,17 @@ const typeorm_2 = require("typeorm");
 const nestjs_prometheus_1 = require("@willsoto/nestjs-prometheus");
 const prom_client_1 = require("prom-client");
 const comer_comission_x_good_entity_1 = require("./entities/comer-comission-x-good.entity");
+const comer_payment_ref_entity_1 = require("./entities/comer-payment-ref.entity");
+const comer_lot_entity_1 = require("./entities/comer-lot.entity");
 let ComissionService = class ComissionService {
-    constructor(entity, logger, counter) {
+    constructor(entity, entityLot, entityPayment, logger, counter) {
         this.entity = entity;
+        this.entityLot = entityLot;
+        this.entityPayment = entityPayment;
         this.logger = logger;
         this.counter = counter;
+        this.lbfLots = [];
+        this.lbfPayment = [];
     }
     async centralCoordinate(data) { }
     async calculateCommissionSpecialRange(data) {
@@ -187,8 +193,26 @@ let ComissionService = class ComissionService {
     async markLotsDateGreater(date) { }
     async markLotsDateMinor(date) { }
     async deleteLotsPaymentsDateMinor(startDate) {
-        const lots = [];
-        const payments = [];
+        const lbfPayment = await this.entityPayment
+            .createQueryBuilder()
+            .select([
+            `ID_PAGO as "id"`,
+            `FECHA as "date"`,
+            `ID_LOTE as "lotId"`,
+            `valido_sistema as "valid"`,
+        ])
+            .getRawMany();
+        console.log(lbfPayment);
+        this.lbfLots.map((lbfLot, i) => {
+            return lbfPayment.map((lbfPayment, d) => {
+                if (lbfLot.lotId == lbfPayment.lotId) {
+                    if (lbfPayment.isValid == 'N') {
+                    }
+                }
+            });
+        });
+        this.lbfPayment = [];
+        return "Eliminado correctamente";
     }
     async getGoodsPaidFromEvent(data) {
         const { eventId, comId } = data;
@@ -263,9 +287,13 @@ let ComissionService = class ComissionService {
 ComissionService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(comer_comission_x_good_entity_1.ComerComissionxbGoodEntity)),
-    __param(1, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
-    __param(2, (0, nestjs_prometheus_1.InjectMetric)("comer_comission_served")),
+    __param(1, (0, typeorm_1.InjectRepository)(comer_lot_entity_1.ComerLotEntity)),
+    __param(2, (0, typeorm_1.InjectRepository)(comer_payment_ref_entity_1.ComerPaymentRefEntity)),
+    __param(3, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
+    __param(4, (0, nestjs_prometheus_1.InjectMetric)("comer_comission_served")),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
         common_1.Logger,
         prom_client_1.Counter])
 ], ComissionService);

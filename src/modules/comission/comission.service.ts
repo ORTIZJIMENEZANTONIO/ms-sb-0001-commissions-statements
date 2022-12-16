@@ -19,12 +19,21 @@ import { PctSpecialDto } from "./dto/get-pct.dto";
 import { ComissionSpecialRangeDto } from "./dto/comission-special-range.dto";
 import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
 import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
+import { ComerPaymentRefEntity } from "./entities/comer-payment-ref.entity";
+import { ComerLotEntity } from "./entities/comer-lot.entity";
 
 @Injectable()
 export class ComissionService {
+  protected lbfLots = [];
+  protected lbfPayment = [];
+
   constructor(
     @InjectRepository(ComerComissionxbGoodEntity)
     private entity: Repository<ComerComissionxbGoodEntity>,
+    @InjectRepository(ComerLotEntity)
+    private entityLot: Repository<ComerLotEntity>,
+    @InjectRepository(ComerPaymentRefEntity)
+    private entityPayment: Repository<ComerPaymentRefEntity>,
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
     @InjectMetric("comer_comission_served") public counter: Counter<string>
   ) {}
@@ -260,8 +269,27 @@ export class ComissionService {
     ELIMIAR LOS LOTES QUE TODOS SUS PAGOS SON MENORES A LA FECHA
   */
   async deleteLotsPaymentsDateMinor(startDate: Date) {
-    const lots = [];
-    const payments = [];
+    const lbfPayment = await this.entityPayment
+      .createQueryBuilder()
+      .select([
+        `ID_PAGO as "id"`,
+        `FECHA as "date"`,
+        `ID_LOTE as "lotId"`,
+        `valido_sistema as "valid"`,
+      ])
+      .getRawMany();
+    console.log(lbfPayment);
+    this.lbfLots.map((lbfLot, i) => {
+      return lbfPayment.map((lbfPayment, d) => {
+        if(lbfLot.lotId == lbfPayment.lotId){
+          if(lbfPayment.isValid == 'N') {
+
+          }
+        }
+      });
+    });
+    this.lbfPayment = [];
+    return "Eliminado correctamente";
   }
 
   /*
