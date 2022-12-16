@@ -135,7 +135,11 @@ let ComissionService = class ComissionService {
             .where(`ID_COMCALCULADA = ${comId2}`);
         return (_a = (await queryComission.getRawOne()).sum) !== null && _a !== void 0 ? _a : 0;
     }
-    async calculateCommission(data) { }
+    async calculateCommission(data) {
+        const { comId, rountine, camTp } = data;
+        const query = `${rountine}(${comId}, ${camTp})`;
+        return await this.entity.query(query);
+    }
     async applyGoodsComission(data) {
         const { comId3, camTp3, porc3 } = data;
         const ac = await this.entity
@@ -182,7 +186,10 @@ let ComissionService = class ComissionService {
     async copyEvenLot() { }
     async markLotsDateGreater(date) { }
     async markLotsDateMinor(date) { }
-    async deleteLotsPaymentsDateMinor(startDate) { }
+    async deleteLotsPaymentsDateMinor(startDate) {
+        const lots = [];
+        const payments = [];
+    }
     async getGoodsPaidFromEvent(data) {
         const { eventId, comId } = data;
         const ca = await this.entity.query(`

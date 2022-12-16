@@ -1,0 +1,33 @@
+export declare class ComerPaymentRefEntity {
+    paymentId: number;
+    reference: string;
+    movementNumber: number;
+    date: Date;
+    amount: number;
+    bankKey: string | null;
+    code: number | null;
+    lotId: number | null;
+    validSistem: string | null;
+    inTimeNumber: string | null;
+    description: string | null;
+    type: string | null;
+    entryOrderId: number | null;
+    result: string | null;
+    branchOffice: number | null;
+    paymentReturnsId: number | null;
+    reconciled: string | null;
+    recordDate: Date | null;
+    referenceOri: string | null;
+    bill: string | null;
+    dateOi: Date | null;
+    appliedTo: string | null;
+    clientId: number | null;
+    folioOi: number | null;
+    indicator: number | null;
+    codeEdoCta: number | null;
+    affectationDate: Date | null;
+    recordNumber: number | null;
+    typeSatId: number | null;
+    spentId: number | null;
+    paymentRequestId: number | null;
+}

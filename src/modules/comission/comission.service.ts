@@ -165,9 +165,13 @@ export class ComissionService {
   }
 
   /*
-    CALCULA LA COMISION Preguntar
+    CALCULA LA COMISION
   */
-  async calculateCommission(data: CalcCommissionDto) {}
+  async calculateCommission(data: CalcCommissionDto) {
+    const { comId, rountine, camTp } = data;
+    const query = `${rountine}(${comId}, ${camTp})`;
+    return await this.entity.query(query);
+  }
 
   /*
     APLICA LA COMISION A LOS BIENES
@@ -255,7 +259,10 @@ export class ComissionService {
   /*
     ELIMIAR LOS LOTES QUE TODOS SUS PAGOS SON MENORES A LA FECHA
   */
-  async deleteLotsPaymentsDateMinor(startDate: Date) {}
+  async deleteLotsPaymentsDateMinor(startDate: Date) {
+    const lots = [];
+    const payments = [];
+  }
 
   /*
     OBTIENE LOS BIENES PAGADOS DE UN EVENTO
