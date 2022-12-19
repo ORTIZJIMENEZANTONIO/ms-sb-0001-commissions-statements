@@ -31,6 +31,7 @@ let ComissionService = class ComissionService {
         this.counter = counter;
         this.lbfLots = [];
         this.lbfPayment = [];
+        this.lbfAux = [];
     }
     async centralCoordinate(data) { }
     async calculateCommissionSpecialRange(data) {
@@ -190,8 +191,31 @@ let ComissionService = class ComissionService {
     async getGoodsInCalculateComission(comId) { }
     async getPaidGoodsInDates(data) { }
     async copyEvenLot() { }
-    async markLotsDateGreater(date) { }
-    async markLotsDateMinor(date) { }
+    async markLotsDateGreater(date) {
+        this.lbfPayment.map((el) => {
+            el.isValid =
+                new Date(el.date) > new Date(date) && el.lotId > 1 ? "N" : "S";
+            if (el.isValid == "N") {
+                this.lbfLots.map((lot) => {
+                    if (lot.id == el.lotId)
+                        lot.isValid = "D";
+                });
+            }
+            if (el.isValid == "D") {
+                this.lbfLots.map((lot) => {
+                    if (lot.id == el.lotId)
+                        lot.id = -1;
+                });
+            }
+        });
+    }
+    async markLotsDateMinor(date) {
+        this.lbfPayment.map((el) => {
+            if (new Date(el.date) < new Date(date)) {
+                el.isValid = "N";
+            }
+        });
+    }
     async deleteLotsPaymentsDateMinor(startDate) {
         const lbfPayment = await this.entityPayment
             .createQueryBuilder()
@@ -202,14 +226,37 @@ let ComissionService = class ComissionService {
             `valido_sistema as "valid"`,
         ])
             .getRawMany();
-        console.log(lbfPayment);
+        let l = 0;
         this.lbfLots.map((lbfLot, i) => {
             return lbfPayment.map((lbfPayment, d) => {
-                if (lbfLot.lotId == lbfPayment.lotId) {
-                    if (lbfPayment.isValid == 'N') {
-                    }
+                if (lbfLot.id == lbfPayment.lotId) {
+                    this.lbfAux[l].lotId = lbfPayment[d].lotId;
+                    this.lbfAux[l].isValid = lbfPayment.isValid == "N" ? "D" : "S";
+                    l++;
                 }
             });
+        });
+        this.lbfAux.map((el) => {
+            if (el.isValid == "S") {
+                this.lbfLots.map((lot) => {
+                    if (el.lotId == lot.id) {
+                        lot.isValid = "S";
+                    }
+                });
+            }
+        });
+        this.lbfLots = this.lbfLots.filter((el) => el.isValid != "N");
+        this.lbfLots.map((lbfLot, i) => {
+            return lbfPayment.map((lbfPayment, d) => {
+                if (lbfLot.id == lbfPayment.lotId) {
+                    lbfPayment.isValid = "P";
+                }
+            });
+        });
+        lbfPayment.map((lbfPayment, d) => {
+            if (lbfPayment.isValid != "P") {
+                lbfPayment.lotId = -1;
+            }
         });
         this.lbfPayment = [];
         return "Eliminado correctamente";

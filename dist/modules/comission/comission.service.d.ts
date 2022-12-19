@@ -25,6 +25,7 @@ export declare class ComissionService {
     counter: Counter<string>;
     protected lbfLots: any[];
     protected lbfPayment: any[];
+    protected lbfAux: any[];
     constructor(entity: Repository<ComerComissionxbGoodEntity>, entityLot: Repository<ComerLotEntity>, entityPayment: Repository<ComerPaymentRefEntity>, logger: Logger, counter: Counter<string>);
     centralCoordinate(data: CentralCoordinateDto): Promise<void>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<string>;

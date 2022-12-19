@@ -21,11 +21,13 @@ import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
 import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 import { ComerPaymentRefEntity } from "./entities/comer-payment-ref.entity";
 import { ComerLotEntity } from "./entities/comer-lot.entity";
+import { filter } from "rxjs";
 
 @Injectable()
 export class ComissionService {
   protected lbfLots = [];
   protected lbfPayment = [];
+  protected lbfAux = [];
 
   constructor(
     @InjectRepository(ComerComissionxbGoodEntity)
@@ -258,12 +260,36 @@ export class ComissionService {
   /*
     MARCA LOS LOTES MAYORES A LA FECHA
   */
-  async markLotsDateGreater(date: Date) {}
+  async markLotsDateGreater(date: Date) {
+    this.lbfPayment.map((el) => {
+      el.isValid =
+        new Date(el.date) > new Date(date) && el.lotId > 1 ? "N" : "S";
+
+      if (el.isValid == "N") {
+        this.lbfLots.map((lot) => {
+          if (lot.id == el.lotId) lot.isValid = "D";
+        });
+      }
+
+      if (el.isValid == "D") {
+        this.lbfLots.map((lot) => {
+          if (lot.id == el.lotId) lot.id = -1;
+        });
+      }
+    });
+  }
 
   /*
     MARCA LOS LOTES MENORES A LA FECHA
   */
-  async markLotsDateMinor(date: Date) {}
+  async markLotsDateMinor(date: Date) {
+    this.lbfPayment.map((el) => {
+      if (new Date(el.date) < new Date(date)) {
+        el.isValid = "N";
+        // update
+      }
+    });
+  }
 
   /*
     ELIMIAR LOS LOTES QUE TODOS SUS PAGOS SON MENORES A LA FECHA
@@ -278,16 +304,43 @@ export class ComissionService {
         `valido_sistema as "valid"`,
       ])
       .getRawMany();
-    console.log(lbfPayment);
+    let l = 0;
     this.lbfLots.map((lbfLot, i) => {
       return lbfPayment.map((lbfPayment, d) => {
-        if(lbfLot.lotId == lbfPayment.lotId){
-          if(lbfPayment.isValid == 'N') {
-
-          }
+        if (lbfLot.id == lbfPayment.lotId) {
+          this.lbfAux[l].lotId = lbfPayment[d].lotId;
+          this.lbfAux[l].isValid = lbfPayment.isValid == "N" ? "D" : "S";
+          l++;
         }
       });
     });
+
+    this.lbfAux.map((el) => {
+      if (el.isValid == "S") {
+        this.lbfLots.map((lot) => {
+          if (el.lotId == lot.id) {
+            lot.isValid = "S";
+          }
+        });
+      }
+    });
+
+    this.lbfLots = this.lbfLots.filter((el) => el.isValid != "N");
+
+    this.lbfLots.map((lbfLot, i) => {
+      return lbfPayment.map((lbfPayment, d) => {
+        if (lbfLot.id == lbfPayment.lotId) {
+          lbfPayment.isValid = "P";
+        }
+      });
+    });
+
+    lbfPayment.map((lbfPayment, d) => {
+      if (lbfPayment.isValid != "P") {
+        lbfPayment.lotId = -1;
+      }
+    });
+
     this.lbfPayment = [];
     return "Eliminado correctamente";
   }
