@@ -190,7 +190,16 @@ let ComissionService = class ComissionService {
     }
     async getGoodsInCalculateComission(comId) { }
     async getPaidGoodsInDates(data) { }
-    async copyEvenLot() { }
+    async copyEvenLot() {
+        let lotPrev = 0;
+        let d = 0;
+        for (const payment of this.lbfPayment) {
+            lotPrev = payment.id;
+            this.lbfLots[d].isValid = "N";
+            this.lbfLots[d].id = payment.lotId;
+            d++;
+        }
+    }
     async markLotsDateGreater(date) {
         this.lbfPayment.map((el) => {
             el.isValid =

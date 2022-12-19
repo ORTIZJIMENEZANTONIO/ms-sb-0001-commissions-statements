@@ -255,7 +255,17 @@ export class ComissionService {
   /**
    COPIA LOS LOTES DEL EVENTO
   */
-  async copyEvenLot() {}
+  async copyEvenLot() {
+    let lotPrev = 0;
+    let d = 0;
+
+    for (const payment of this.lbfPayment) {
+      lotPrev = payment.id;
+      this.lbfLots[d].isValid = "N";
+      this.lbfLots[d].id = payment.lotId;
+      d++;
+    }
+  }
 
   /*
     MARCA LOS LOTES MAYORES A LA FECHA
