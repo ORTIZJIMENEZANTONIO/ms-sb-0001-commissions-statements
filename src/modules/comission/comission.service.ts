@@ -21,7 +21,8 @@ import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
 import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 import { ComerPaymentRefEntity } from "./entities/comer-payment-ref.entity";
 import { ComerLotEntity } from "./entities/comer-lot.entity";
-import { filter } from "rxjs";
+import { ComerEventEntity } from "./entities/comer-event.entity";
+import { ComerCalculatedComissionEntity } from "./entities/comer-calculated-comission.entity";
 
 @Injectable()
 export class ComissionService {
@@ -32,6 +33,10 @@ export class ComissionService {
   constructor(
     @InjectRepository(ComerComissionxbGoodEntity)
     private entity: Repository<ComerComissionxbGoodEntity>,
+    @InjectRepository(ComerCalculatedComissionEntity)
+    private entityCC: Repository<ComerCalculatedComissionEntity>,
+    @InjectRepository(ComerEventEntity)
+    private entityEvent: Repository<ComerEventEntity>,
     @InjectRepository(ComerLotEntity)
     private entityLot: Repository<ComerLotEntity>,
     @InjectRepository(ComerPaymentRefEntity)
@@ -245,12 +250,88 @@ export class ComissionService {
   /*
     OBTIENE LOS BIENES QUE PARTICIPAN EN EL CALCULO DE LA COMISION
   */
-  async getGoodsInCalculateComission(comId: Number) {}
+  async getGoodsInCalculateComission(comId: Number) {
+
+    const comissionQuery = await this.entityCC.createQueryBuilder()
+      .select([
+        `ID_EVENTO as "lbEvent"`,
+			  `FECHA_INI as "lbStartDate"`,
+			  `FECHA_FIN as "lbEndDate"`,
+      ])
+      .where(`ID_COMCALCULADA = ${comId}`)
+      .getRawOne();
+
+    await this.entity
+      .createQueryBuilder()
+      .delete()
+      .from(ComerComissionxbGoodEntity)
+      .where(`ID_COMCALCULADA = ${comId}`)
+      .execute();
+
+    return (comissionQuery.lbEvent && comissionQuery.lbStartDate && !comissionQuery.lbEndDate) 
+      ? await this.getGoodsPaidFromEvent({
+          eventId: comissionQuery.lbEvent,
+          comId: comId
+        }) 
+      : (!comissionQuery.lbEvent && comissionQuery.lbStartDate && comissionQuery.lbEndDate)
+      ? await this.getPaidGoodsInDates({
+          startDate: comissionQuery.lbStartDate,
+          endDate: comissionQuery.lbEndDate,
+          comId1: comId
+        })
+      : null;
+  }
 
   /*
     OBTIENE LOS BIENES PAGADOS EN UN RANGO DE FECHAS
   */
-  async getPaidGoodsInDates(data: PaidGoodsInDatesDto) {}
+  async getPaidGoodsInDates(data: PaidGoodsInDatesDto) {
+    const { startDate, endDate, comId1 } = data;
+    let lbeEventId = 0;
+    let lbfPaymentId = 0;
+    let lbflotId = 0;
+    let lbfDate = new Date();
+    let i = 0;
+    let k = 0;
+    let lbfGood = 0;
+    let lbfCvMan = 0;
+    let lbfLotPub = 0;
+    let lbfAmount = 0;
+    let lbfEvent = 0;
+    let cont = 0;
+    const lbe = await this.entityEvent
+      .createQueryBuilder("eve")
+      .select([`eve.id as "id"`])
+      .where(`eve.DIRECCION = 'M'`)
+      .andWhere(
+        `EXISTS (SELECT
+          1
+        FROM
+          sera.COMER_PAGOREF            PRF,
+          sera.COMER_PAGOSREFGENS       GEN
+        WHERE
+          PRF.ID_PAGO = GEN.ID_PAGO
+          AND GEN.ID_EVENTO = eve.ID_EVENTO
+          AND PRF.FECHA >= ${startDate}
+          AND PRF.FECHA <= ${endDate})
+      `
+      )
+      .andWhere(
+        `EXISTS (
+        SELECT
+          1
+        FROM
+          sera.COMER_TPEVENTOSXTERCOMER TXT,
+          sera.COMER_COMCALCULADA       CCL
+        WHERE
+          CCL.ID_COMCALCULADA = ${comId1}
+          AND TXT.ID_TERCEROCOMER = CCL.ID_TERCEROCOMER
+          AND TXT.ID_TPEVENTO = eve.ID_TPEVENTO  
+      `
+      )
+      .getRawMany();
+    const lbb = async (lotId) => await this.entityLot.query();
+  }
 
   /**
    COPIA LOS LOTES DEL EVENTO
@@ -434,4 +515,3 @@ export class ComissionService {
     return "OK";
   }
 }
-/* 11 Sin terminar y 19 totales */

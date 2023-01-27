@@ -1,0 +1,484 @@
+{
+	"info": {
+		"_postman_id": "f7d719fd-8256-4e8b-b5de-c9fc17bfa75b",
+		"name": "ms-sb-0001-commissions-statements",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6419147"
+	},
+	"item": [
+		{
+			"name": "getTotalSolds",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"comId2\": 61,\n  \"camTp2\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/total-solds",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"total-solds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPctComissionToSpecial",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"comId2\": 61,\n  \"camTp2\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/comission-special",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"comission-special"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createComission",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"comId1\": 3,\n  \"event1\": 1,\n  \"good1\": 1228816,\n  \"com1\": 2.71530000000000,\n  \"lot1\": 140430,\n  \"cvMan1\": \"820647\",\n  \"sold1\": 38.79\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteComission",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{port}}/{{comission}}/1",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateComissionData",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"comId\": 1,\n  \"comission\": 1,\n  \"goodNumber\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteLotsPaymentsDateMinor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\": \"2022-12-15\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/payments/date-minor",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"payments",
+						"date-minor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "centralCoordinate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{port}}/{{comission}}/central-coordinate",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"central-coordinate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculateCommissionSpecialRange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{port}}/{{comission}}/calculate-special-range",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"calculate-special-range"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculateCommissionRange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"comId1\": 1,\n  \"camTp1\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/comission-range",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"comission-range"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculateComission",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comId\": 1,\n    \"rountine\": \"\",\n    \"camTp\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/calculate-comission",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"calculate-comission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "applyGoodsComission",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comId3\": 1,\n    \"camTp3\": 1,\n    \"porc3\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/apply-goods-comission",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"apply-goods-comission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculateComissionTotal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comId1\": 1,\n    \"camTp1\": 1\n}"
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/comission-total",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"comission-total"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGoodsInCalculateComission",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{port}}/{{comission}}/goods-comission/1",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"goods-comission",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPaidGoodsInDates",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\": \"2020-03-12\",\n    \"endDate\": \"2022-12-12\",\n    \"comId1\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/paid-goods-in-dates",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"paid-goods-in-dates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "copyEvenLot",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{port}}/{{comission}}/copy-event-lot",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"copy-event-lot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "markLotsDateGreater",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2021-12-12\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/lots-date-greater",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"lots-date-greater"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "markLotsDateMinor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\": \"2021-12-12\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/lots-date-minor",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"lots-date-minor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteLotsPaymentsDateMinor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\": \"2021-12-12\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/payments/date-minor",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"payments",
+						"date-minor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGoodsPaidFromEvent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"eventId\": 1,\n    \"comId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{port}}/{{comission}}/goods-paid-from-event",
+					"host": [
+						"{{port}}"
+					],
+					"path": [
+						"{{comission}}",
+						"goods-paid-from-event"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": "localhost:3001"
+		},
+		{
+			"key": "comission",
+			"value": "api/v1/comission"
+		}
+	]
+}

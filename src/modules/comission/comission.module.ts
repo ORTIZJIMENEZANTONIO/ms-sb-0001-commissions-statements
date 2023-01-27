@@ -10,12 +10,16 @@ import { ComissionController } from "./comission.controller";
 import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 import { ComerLotEntity } from "./entities/comer-lot.entity";
 import { ComerPaymentRefEntity } from "./entities/comer-payment-ref.entity";
+import { ComerEventEntity } from "./entities/comer-event.entity";
+import { ComerCalculatedComissionEntity } from "./entities/comer-calculated-comission.entity";
 
 @Module({
   imports: [TypeOrmModule.forFeature([
     ComerComissionxbGoodEntity,
+    ComerCalculatedComissionEntity,
     ComerLotEntity,
-    ComerPaymentRefEntity
+    ComerPaymentRefEntity,
+    ComerEventEntity
   ])],
   controllers: [ComissionController],
   providers: [

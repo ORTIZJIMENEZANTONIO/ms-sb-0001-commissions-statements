@@ -22,9 +22,11 @@ const prom_client_1 = require("prom-client");
 const comer_comission_x_good_entity_1 = require("./entities/comer-comission-x-good.entity");
 const comer_payment_ref_entity_1 = require("./entities/comer-payment-ref.entity");
 const comer_lot_entity_1 = require("./entities/comer-lot.entity");
+const comer_event_entity_1 = require("./entities/comer-event.entity");
 let ComissionService = class ComissionService {
-    constructor(entity, entityLot, entityPayment, logger, counter) {
+    constructor(entity, entityEvent, entityLot, entityPayment, logger, counter) {
         this.entity = entity;
+        this.entityEvent = entityEvent;
         this.entityLot = entityLot;
         this.entityPayment = entityPayment;
         this.logger = logger;
@@ -189,7 +191,48 @@ let ComissionService = class ComissionService {
             .execute();
     }
     async getGoodsInCalculateComission(comId) { }
-    async getPaidGoodsInDates(data) { }
+    async getPaidGoodsInDates(data) {
+        const { startDate, endDate, comId1 } = data;
+        let lbeEventId = 0;
+        let lbfPaymentId = 0;
+        let lbflotId = 0;
+        let lbfDate = new Date();
+        let i = 0;
+        let k = 0;
+        let lbfGood = 0;
+        let lbfCvMan = 0;
+        let lbfLotPub = 0;
+        let lbfAmount = 0;
+        let lbfEvent = 0;
+        let cont = 0;
+        const lbe = await this.entityEvent
+            .createQueryBuilder("eve")
+            .select([`eve.id as "id"`])
+            .where(`eve.DIRECCION = 'M'`)
+            .andWhere(`EXISTS (SELECT
+          1
+        FROM
+          sera.COMER_PAGOREF            PRF,
+          sera.COMER_PAGOSREFGENS       GEN
+        WHERE
+          PRF.ID_PAGO = GEN.ID_PAGO
+          AND GEN.ID_EVENTO = eve.ID_EVENTO
+          AND PRF.FECHA >= ${startDate}
+          AND PRF.FECHA <= ${endDate})
+      `)
+            .andWhere(`EXISTS (
+        SELECT
+          1
+        FROM
+          sera.COMER_TPEVENTOSXTERCOMER TXT,
+          sera.COMER_COMCALCULADA       CCL
+        WHERE
+          CCL.ID_COMCALCULADA = ${comId1}
+          AND TXT.ID_TERCEROCOMER = CCL.ID_TERCEROCOMER
+          AND TXT.ID_TPEVENTO = eve.ID_TPEVENTO  
+      `)
+            .getRawMany();
+    }
     async copyEvenLot() {
         let lotPrev = 0;
         let d = 0;
@@ -343,11 +386,13 @@ let ComissionService = class ComissionService {
 ComissionService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(comer_comission_x_good_entity_1.ComerComissionxbGoodEntity)),
-    __param(1, (0, typeorm_1.InjectRepository)(comer_lot_entity_1.ComerLotEntity)),
-    __param(2, (0, typeorm_1.InjectRepository)(comer_payment_ref_entity_1.ComerPaymentRefEntity)),
-    __param(3, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
-    __param(4, (0, nestjs_prometheus_1.InjectMetric)("comer_comission_served")),
+    __param(1, (0, typeorm_1.InjectRepository)(comer_event_entity_1.ComerEventEntity)),
+    __param(2, (0, typeorm_1.InjectRepository)(comer_lot_entity_1.ComerLotEntity)),
+    __param(3, (0, typeorm_1.InjectRepository)(comer_payment_ref_entity_1.ComerPaymentRefEntity)),
+    __param(4, (0, common_1.Inject)(nest_winston_1.WINSTON_MODULE_PROVIDER)),
+    __param(5, (0, nestjs_prometheus_1.InjectMetric)("comer_comission_served")),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
         common_1.Logger,

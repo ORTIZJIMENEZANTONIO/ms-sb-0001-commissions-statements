@@ -15,6 +15,7 @@ const comission_controller_1 = require("./comission.controller");
 const comer_comission_x_good_entity_1 = require("./entities/comer-comission-x-good.entity");
 const comer_lot_entity_1 = require("./entities/comer-lot.entity");
 const comer_payment_ref_entity_1 = require("./entities/comer-payment-ref.entity");
+const comer_event_entity_1 = require("./entities/comer-event.entity");
 let ComissionModule = class ComissionModule {
 };
 ComissionModule = __decorate([
@@ -22,7 +23,8 @@ ComissionModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([
                 comer_comission_x_good_entity_1.ComerComissionxbGoodEntity,
                 comer_lot_entity_1.ComerLotEntity,
-                comer_payment_ref_entity_1.ComerPaymentRefEntity
+                comer_payment_ref_entity_1.ComerPaymentRefEntity,
+                comer_event_entity_1.ComerEventEntity
             ])],
         controllers: [comission_controller_1.ComissionController],
         providers: [

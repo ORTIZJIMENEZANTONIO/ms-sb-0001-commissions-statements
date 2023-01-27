@@ -17,8 +17,10 @@ import { CentralCoordinateDto } from "./dto/central-coordinate.dto";
 import { ComerComissionxbGoodEntity } from "./entities/comer-comission-x-good.entity";
 import { ComerPaymentRefEntity } from "./entities/comer-payment-ref.entity";
 import { ComerLotEntity } from "./entities/comer-lot.entity";
+import { ComerEventEntity } from "./entities/comer-event.entity";
 export declare class ComissionService {
     private entity;
+    private entityEvent;
     private entityLot;
     private entityPayment;
     private readonly logger;
@@ -26,7 +28,7 @@ export declare class ComissionService {
     protected lbfLots: any[];
     protected lbfPayment: any[];
     protected lbfAux: any[];
-    constructor(entity: Repository<ComerComissionxbGoodEntity>, entityLot: Repository<ComerLotEntity>, entityPayment: Repository<ComerPaymentRefEntity>, logger: Logger, counter: Counter<string>);
+    constructor(entity: Repository<ComerComissionxbGoodEntity>, entityEvent: Repository<ComerEventEntity>, entityLot: Repository<ComerLotEntity>, entityPayment: Repository<ComerPaymentRefEntity>, logger: Logger, counter: Counter<string>);
     centralCoordinate(data: CentralCoordinateDto): Promise<void>;
     calculateCommissionSpecialRange(data: ComissionSpecialRangeDto): Promise<string>;
     getPctComissionToSpecial(data: PctSpecialDto): Promise<Number>;
